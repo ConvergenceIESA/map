@@ -26,20 +26,21 @@ var coordinates = [
 ]
 
 var map = {
-    map : null,
+    map     : null,
     watchId : null,
     overlay : null,
+    points  : [],
 
     init : function() {
-        map.setOverlay();
         map.setMap();
+        map.setOverlay();
         map.setWatchId();
     },
 
     setOverlay : function() {
-        map.overlay = new google.maps.OverlayView();
-        overlay.draw = function() {};
-        overlay.setMap(map.map);
+        map.overlay      = new google.maps.OverlayView();
+        map.overlay.draw = function() {};
+        map.overlay.setMap(map.map);
     },
 
     setMap : function() {
@@ -66,16 +67,12 @@ var map = {
         if (!previousPosition) {
 
             var newLineCoordinates = [];
-            var bounds = new google.maps.LatLngBounds();
 
             coordinates.forEach(function(coordinate) {
                 var newLine = new google.maps.LatLng(coordinate.lat, coordinate.long);
                 newLineCoordinates.push(newLine);
+                map.points.push(newLine);
             });
-
-            for (i = 0; i < newLineCoordinates.length; i++) {
-                bounds.extend(newLineCoordinates[i]);
-            }
 
             var newLine = new google.maps.Polyline({
                 path: newLineCoordinates,
@@ -85,13 +82,15 @@ var map = {
             });
 
             newLine.setMap(map.map);
-            L = bounds;
-            console.log(bounds);
 
-            var t = map.getLatlngToPoint(map.map, newLineCoordinates[1], 1);
-            L = newLineCoordinates[1];
+            map.points.forEach(function(_point, k) {
+                var point = map.overlay.getProjection().fromLatLngToDivPixel(_point);
+                map.points[k] = point;
+            })
+
+            console.log(map.points);
+            var t = map.overlay.getProjection().fromLatLngToDivPixel(newLineCoordinates[0]);
             $hello.css({top : t.y, left : t.x});
-            console.log(t);
         }
 
         previousPosition = position;

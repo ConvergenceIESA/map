@@ -8,15 +8,9 @@ var     canvas = $( 'canvas' )
   ,         r1 = 20
   ,         r2 = 60
   ,    density = .4
-  , hideOnMove = true
   ,   hideFill = 'rgba( 0, 0, 0, .1 )'
   ,    overlay = 'rgba( 0, 0, 0, 1 )'
   ;
-
-if( !hideOnMove ){
-  // shouldn't be done like this, but this is a demo
-  canvas.get(1).remove();
-}
 
 // black out the canvas
 ctx.fillStyle = overlay;
