@@ -30,11 +30,16 @@ var map = {
     watchId : null,
     overlay : null,
     points  : [],
+    position : null,
 
     init : function() {
         map.setMap();
         map.setOverlay();
         map.setWatchId();
+
+        map.map.addListener('dragend', function() {
+            map.updateCoordinate();
+        });
     },
 
     setOverlay : function() {
@@ -46,8 +51,8 @@ var map = {
     setMap : function() {
         map.map = new google.maps.Map(document.getElementById("map_canvas"), {
             zoom: 19,
-            center: new google.maps.LatLng(48.8098683, 2.2983893000000535),
-            mapTypeId: google.maps.LatLng(48.8098683, 2.2983893000000535)
+            //center: new google.maps.LatLng(48.8098683, 2.2983893000000535),
+            //mapTypeId: google.maps.LatLng(48.8098683, 2.2983893000000535)
         });
     },
 
@@ -62,47 +67,31 @@ var map = {
 
     updatePosition : function(position) {
 
-        map.map.panTo(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-
-        if (!previousPosition) {
-
-            var newLineCoordinates = [];
-
-            coordinates.forEach(function(coordinate) {
-                var newLine = new google.maps.LatLng(coordinate.lat, coordinate.long);
-                newLineCoordinates.push(newLine);
-                map.points.push(newLine);
-            });
-
-            var newLine = new google.maps.Polyline({
-                path: newLineCoordinates,
-                strokeColor: "#FF0000",
-                strokeOpacity: 0.6,
-                strokeWeight: 10
-            });
-
-            newLine.setMap(map.map);
-
-            map.points.forEach(function(_point, k) {
-                var point = map.overlay.getProjection().fromLatLngToDivPixel(_point);
-                map.points[k] = point;
-            })
-
-            console.log(map.points);
-            var t = map.overlay.getProjection().fromLatLngToDivPixel(newLineCoordinates[0]);
-            $hello.css({top : t.y, left : t.x});
+        if(position) {
+            map.map.panTo(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
         }
 
-        previousPosition = position;
+        if (!previousPosition) {
+            map.updateCoordinate();
+        }
     },
 
-    getLatlngToPoint : function(map, latlng, z) {
-        var normalizedPoint = map.getProjection().fromLatLngToPoint(latlng); // returns x,y normalized to 0~255
-        var scale = Math.pow(2, z);
-        var pixelCoordinate = new google.maps.Point(normalizedPoint.x * scale, normalizedPoint.y * scale);
+    updateCoordinate : function() {
+        map.points = [];
+        map.setOverlay();
 
-        //console.log('Position: ' + pixelCoordinate.x + "; " + pixelCoordinate.y);
-        return pixelCoordinate;
+        coordinates.forEach(function(coordinate) {
+            var newLine = new google.maps.LatLng(coordinate.lat, coordinate.long);
+            map.points.push(newLine);
+        });
+
+        map.points.forEach(function(_point, k) {
+            var point = map.overlay.getProjection().fromLatLngToDivPixel(_point);
+            map.points[k] = point;
+        })
+
+        console.log(map.points);
+        fog.draw(map.points);
     }
 }
 
