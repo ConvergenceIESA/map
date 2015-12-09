@@ -5,11 +5,11 @@ var     canvas = $( 'canvas' )
   ,       ctx2 = canvas[1].getContext( '2d' ) // fog
   ,       ctx3 = canvas[2].getContext( '2d' ) // chars
   ,      mDown = false
-  ,         r1 = 100
-  ,         r2 = 200
+  ,         r1 = 20
+  ,         r2 = 60
   ,    density = .4
   , hideOnMove = true
-  ,   hideFill = 'rgba( 0, 0, 0, .7 )'
+  ,   hideFill = 'rgba( 0, 0, 0, .1 )'
   ,    overlay = 'rgba( 0, 0, 0, 1 )'
   ;
 
