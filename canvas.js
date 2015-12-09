@@ -1,5 +1,6 @@
 // init canvas
 var     canvas = $( 'canvas' )
+  ,       maps = $('#map_canvas')
   ,        ctx = canvas[0].getContext( '2d' ) // world
   ,       ctx2 = canvas[1].getContext( '2d' ) // fog
   ,       ctx3 = canvas[2].getContext( '2d' ) // chars
@@ -24,7 +25,7 @@ ctx.fillRect( 0, 0, 1900, 800 );
 // set up our "eraser"
 ctx.globalCompositeOperation = 'destination-out';
 
-canvas.last()
+maps.last()
   .on( 'mousemove', function( ev, ev2 ){
     ev2 && ( ev = ev2 );
 

@@ -6,7 +6,7 @@ canvas{
   position: absolute;
   top     : 0px;
   left    : 0px;
-  z-index : 100;
+  z-index : 90;
 }
 
 footer {
@@ -16,5 +16,6 @@ footer {
 }
 
 #map_canvas {
-  z-index : 90;
+  z-index : 100;
+  opacity : 0.7;
 }

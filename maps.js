@@ -1,5 +1,21 @@
 var previousPosition = null;
 
+var map = {
+    map : null,
+
+    init : function() {
+        map.setMap();
+    },
+
+    setMap : function() {
+        map.map = new google.maps.Map(document.getElementById("map_canvas"), {
+            zoom: 19,
+            center: new google.maps.LatLng(48.8098683, 2.2983893000000535),
+            mapTypeId: google.maps.LatLng(48.8098683, 2.2983893000000535)
+        });
+    }
+}
+
 function initialize() {
   map = new google.maps.Map(document.getElementById("map_canvas"), {
         zoom: 19,
