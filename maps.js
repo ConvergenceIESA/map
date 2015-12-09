@@ -24,6 +24,9 @@ var coordinates = [
       "long": "2.395296"
     }
 ]
+localforage.setItem('coordinates', coordinates, function(err, value) {
+    console.log(value);
+});
 
 var map = {
     map     : null,
