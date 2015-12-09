@@ -1,4 +1,6 @@
 var previousPosition = null;
+var L;
+var $hello = $('#hello');
 
 var coordinates = [
     {
@@ -26,10 +28,18 @@ var coordinates = [
 var map = {
     map : null,
     watchId : null,
+    overlay : null,
 
     init : function() {
+        map.setOverlay();
         map.setMap();
         map.setWatchId();
+    },
+
+    setOverlay : function() {
+        map.overlay = new google.maps.OverlayView();
+        overlay.draw = function() {};
+        overlay.setMap(map.map);
     },
 
     setMap : function() {
@@ -56,25 +66,46 @@ var map = {
         if (!previousPosition) {
 
             var newLineCoordinates = [];
+            var bounds = new google.maps.LatLngBounds();
+
             coordinates.forEach(function(coordinate) {
                 var newLine = new google.maps.LatLng(coordinate.lat, coordinate.long);
                 newLineCoordinates.push(newLine);
             });
 
+            for (i = 0; i < newLineCoordinates.length; i++) {
+                bounds.extend(newLineCoordinates[i]);
+            }
+
             var newLine = new google.maps.Polyline({
                 path: newLineCoordinates,
                 strokeColor: "#FF0000",
-                strokeOpacity: 1.0,
+                strokeOpacity: 0.6,
                 strokeWeight: 10
             });
 
             newLine.setMap(map.map);
-            console.log(newLine.getPoints());
+            L = bounds;
+            console.log(bounds);
+
+            var t = map.getLatlngToPoint(map.map, newLineCoordinates[1], 1);
+            L = newLineCoordinates[1];
+            $hello.css({top : t.y, left : t.x});
+            console.log(t);
         }
 
         previousPosition = position;
+    },
+
+    getLatlngToPoint : function(map, latlng, z) {
+        var normalizedPoint = map.getProjection().fromLatLngToPoint(latlng); // returns x,y normalized to 0~255
+        var scale = Math.pow(2, z);
+        var pixelCoordinate = new google.maps.Point(normalizedPoint.x * scale, normalizedPoint.y * scale);
+
+        //console.log('Position: ' + pixelCoordinate.x + "; " + pixelCoordinate.y);
+        return pixelCoordinate;
     }
-};
+}
 
 $(function() {
     map.init();

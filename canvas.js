@@ -26,7 +26,7 @@ ctx.fillRect( 0, 0, 1900, 800 );
 ctx.globalCompositeOperation = 'destination-out';
 
 maps.last()
-  .on( 'mousemove', function( ev, ev2 ){
+  .on( '', function( ev, ev2 ){
     ev2 && ( ev = ev2 );
 
     var pX = ev.pageX
