@@ -1,35 +1,48 @@
 var previousPosition = null;
 var L;
 var $hello = $('#hello');
+var coordinates = null;
 
-var coordinates = [
-    {
-      "lat": "48.856807",
-      "long": "2.373173"
-    },
-    {
-      "lat": "48.856461",
-      "long": "2.373463"
-  },
-    {
-      "lat": "48.858705",
-      "long": "2.378644"
-  },
-    {
-      "lat": "48.857871",
-      "long": "2.380043"
-    },
-    {
-      "lat": "48.848733",
-      "long": "2.395296"
-  },
-  {
-      "lat" : "48.857063",
-      "long" : "2.373974"},
-  {
-      "lat" : "48.855746",
-      "long" : "2.373153"},
-]
+localforage.getItem('coordinates', function(err, value) {
+
+    if (value!= null) {
+        coordinates = value;
+    } else {
+        coordinates = [
+            {
+                "lat": "48.856807",
+                "long": "2.373173"
+            },
+            {
+                "lat": "48.856461",
+                "long": "2.373463"
+            },
+            {
+                "lat": "48.858705",
+                "long": "2.378644"
+            },
+            {
+                "lat": "48.857871",
+                "long": "2.380043"
+            },
+            {
+                "lat": "48.848733",
+                "long": "2.395296"
+            },
+            {
+                "lat" : "48.857063",
+                "long" : "2.373974"},
+            {
+                "lat" : "48.855746",
+                "long" : "2.373153"},
+        ]
+
+        localforage.setItem('coordinates', coordinates, function(err, value) {
+            console.log(value);
+        });
+    }
+});
+
 
 var map = {
     map     : null,
@@ -106,7 +119,7 @@ var map = {
             //     //   newLineCoordinates.push(newLine);
             //     //}
             // }
-            console.log(newLineCoordinates);
+            //console.log(newLineCoordinates);
             var polygon = new google.maps.Polygon({
                 paths : newLineCoordinates,
                 // paths: [
@@ -139,7 +152,7 @@ var map = {
 
     drawFog : function(polygon) {
         // Get rectangle points coordinates (path)
-        console.log(polygon.getPath());
+        //console.log(polygon.getPath());
         var rb = map.fog.getBounds();
         var rectangleCoords = [
             new google.maps.LatLng(rb.getNorthEast().lat(), rb.getSouthWest().lng()),
