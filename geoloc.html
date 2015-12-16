@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Info windows</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+
+    // This example displays a marker at the center of Australia.
+    // When the user clicks the marker, an info window opens.
+
+    function initMap() {
+
+        var resto = {lat: 48.856585, lng: 2.373261};
+        var iesa = {lat: 48.856807, lng: 2.373173};
+
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 20,
+            center: resto
+        });
+
+
+
+        var contentString = '<div id="content">'+
+                '<div id="siteNotice">'+
+                '</div>'+
+                '<h1 id="firstHeading" class="firstHeading">Fresh Bagel & Juice</h1>'+
+                '<div id="bodyContent">'+
+                '<p><b>Horaires :</b><br /> - lun. - ven. 9:30 - 16:00 ' +
+                '<br /> - sam. 11:30 - 16:00<br /><br /> '+
+                '<b>Adresse :</b> 1 Rue Froment, 75011 Paris, France <br /><br /> '+
+                '<b>Téléphone :</b> 0155286132 '+
+                '</div>'+
+                '</div>';
+
+        var infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+
+        var marker = new google.maps.Marker({
+            position: iesa,
+            map: map,
+            title: 'Location'
+        });
+
+        var marker2 = new google.maps.Marker({
+            position: resto,
+            map: map,
+            title: 'Hello World!',
+            icon: 'http://maps.google.com/mapfiles/kml/pal2/icon32.png'
+        });
+
+
+        marker.addListener('click', function() {
+            infowindow.open(map, marker2);
+        });
+    }
+
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKQtHpT8xvNn60H0rmxGg3ww6Bx9CPX84&signed_in=true&callback=initMap"></script>
+</body>
+</html>
+Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 3.0 License, and code samples are licensed under the Apache 2.0 License. For details, see our Site Policies.
+
+Dernière mise à jour : décembre 15, 2015
+Stack Overflow
+Ask a question under the google-maps-api-3 tag.
+GitHub
+Fork our samples and try them yourself.
+Blog
+Read the latest updates, customer stories, and tips.
+Issue Tracker
+Something wrong? Send us a bug report!
