@@ -8,8 +8,6 @@ var fog = {
 
     setUp : function() {
         // Remplis le canvas
-        console.log('coucou');
-        //fog.ctx.clearRect(0, 0, fog.canvas[0].width, fog.canvas[0].height);
         fog.ctx.fillStyle = fog.overlay;
         fog.ctx.fillRect( 0, 0, fog.canvas[0].width, fog.canvas[0].height );
 
