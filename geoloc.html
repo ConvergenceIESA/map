@@ -51,21 +51,22 @@
             content: contentString
         });
 
+
+        var marker2 = new google.maps.Marker({
+            position: resto,
+            map: map,
+            title: 'Fresh Bagel & Juice',
+            icon: 'http://maps.google.com/mapfiles/kml/pal2/icon32.png'
+        });
+
         var marker = new google.maps.Marker({
             position: iesa,
             map: map,
             title: 'Location'
         });
 
-        var marker2 = new google.maps.Marker({
-            position: resto,
-            map: map,
-            title: 'Hello World!',
-            icon: 'http://maps.google.com/mapfiles/kml/pal2/icon32.png'
-        });
 
-
-        marker.addListener('click', function() {
+        marker2.addListener('click', function() {
             infowindow.open(map, marker2);
         });
     }
