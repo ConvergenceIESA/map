@@ -43,6 +43,15 @@ localforage.getItem('coordinates', function(err, value) {
     }
 });
 
+// worker api google places
+var worker = new Worker('worker.js');
+
+if(coordinates){
+    worker.postMessage(coordinates);
+}
+worker.addEventListener('message', function(e){
+    console.log(e.data);
+});
 
 var map = {
     map     : null,
