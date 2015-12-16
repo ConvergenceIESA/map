@@ -1,0 +1,22 @@
+{
+  "name": "Map",
+  "version": "1.0",
+  "homepage": "https://map.com/",
+  "authors": [
+    "Map"
+  ],
+  "license": "Apache",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "pages",
+    "index.html",
+    "/js"
+  ],
+  "dependencies": {
+    "localforage": "1.0.4"
+  }
+}
