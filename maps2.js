@@ -107,12 +107,12 @@ var map = {
             var newLineCoordinates = [];
 
             coordinates.forEach(function(coordinate) {
-                var newLine = new google.maps.LatLng(coordinate.lat, coordinate.long);
+                var newLine =  new google.maps.LatLng((parseFloat(coordinate.lat) - 0.0004), (parseFloat(coordinate.long) - 0.0001));
                 newLineCoordinates.push(newLine);
             });
 
             coordinates.forEach(function(coordinate) {
-                var newLine = new google.maps.LatLng((parseFloat(coordinate.lat) + 0.0001), (parseFloat(coordinate.long) + 0.0001));
+                var newLine = new google.maps.LatLng((parseFloat(coordinate.lat) + 0.0004), (parseFloat(coordinate.long) + 0.0001));
                 newLineCoordinates.unshift(newLine);
             });
 
